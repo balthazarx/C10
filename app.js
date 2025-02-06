@@ -8,7 +8,7 @@ async function mainMenu() {
             type: 'list',
             name: 'choice',
             message: 'What would you like to do?',
-            choices: ['View Departments', 'Add Department', 'View Roles', 'Add Role', 'View Employees', 'Add Employee', 'Exit']
+            choices: ['View Departments', 'Add Department', 'View Roles', 'Add Roles', 'View Employees', 'Add Employee', 'Exit']
         }
     ]);
 
@@ -27,20 +27,25 @@ async function mainMenu() {
             console.table(await getRoles());
             break;
         case 'Add Roles':
-            const { roleName } = await inquirer.prompt([
-                { type: 'input', name: 'roleName', message: 'Enter role name:' }
+            const { roleName, deptSal, deptID } = await inquirer.prompt([
+                { type: 'input', name: 'roleName', message: 'Enter role name:' },
+                { type: 'input', name: 'deptSal', message: 'Enter salary:' },
+                { type: 'input', name: 'deptID', message: 'Enter department ID:' }
             ]);
-            console.log(await addRole(roleName));
+            console.log(await addRole(roleName, deptSal, deptID));
             break;
 
         case 'View Employees':
             console.table(await getEmployees());
             break;
         case 'Add Employee':
-            const { empName } = await inquirer.prompt([
-                { type: 'input', name: 'empName', message: 'Enter employee name:' }
+            const { empName, empLName, empID, manID } = await inquirer.prompt([
+                { type: 'input', name: 'empName', message: 'Enter employee name:' },
+                { type: 'input', name: 'empLName', message: 'Enter employee last name:' },
+                { type: 'input', name: 'empID', message: 'Enter role ID:' },
+                { type: 'input', name: 'manID', message: 'Enter manaager ID:' }
             ]);
-            console.log(await addEmployee(empName));
+            console.log(await addEmployee(empName, empLName, empID, manID));
             break;
         case 'Exit':
             console.log('Goodbye!');
